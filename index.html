@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi App Dinámica</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="app-container">
+        
+       <nav class="app-bar">
+    <div class="user-profile">🛍️</div> 
+    <h1 id="titulo-app">Mi Tienda</h1>
+    <div class="cart-icon" onclick="cambiarPantalla('carrito')" style="cursor:pointer;">🛒</div>
+</nav>
+
+        <div class="search-container">
+            <input type="text" id="input-buscador" placeholder="Buscar productos...">
+        </div>
+
+        <div id="view-inicio" class="app-view">
+            <section class="banner-container">
+                <div class="banner-slider">
+                    <div class="banner-item" style="background-color: #ff9900;">¡Ofertas de Invierno! ❄️</div>
+                    <div class="banner-item" style="background-color: #1a73e8;">Envíos gratis 🚚</div>
+                    <div class="banner-item" style="background-color: #34a853;">3 Cuotas sin interés 💳</div>
+                </div>
+            </section>
+
+            <section class="seccion-categorias">
+                <h2 class="subtitulo">Categorías</h2>
+                <div class="categorias-grid">
+    <div class="cat-item" onclick="filtrarCategoria('calzado')">👟<span>Calzado</span></div>
+    <div class="cat-item" onclick="filtrarCategoria('ropa')">👕<span>Ropa</span></div>
+    <div class="cat-item" onclick="filtrarCategoria('gorras')">🧢<span>Gorras</span></div>
+    <div class="cat-item" onclick="filtrarCategoria('accesorios')">🎒<span>Accesorios</span></div>
+    <div class="cat-item" onclick="filtrarCategoria('equipamiento')">⚽<span>Equipos</span></div>
+</div>
+            </section>
+
+            <section class="seccion-destacados">
+                <h2 class="subtitulo">Lo más buscado 🔥</h2>
+                <div id="contenedor-destacados"></div>
+            </section>
+        </div>
+
+        <div id="view-productos" class="app-view" style="display: none;">
+            <h2 class="subtitulo">Resultados</h2>
+            <main id="contenedor-productos"></main>
+        </div>
+
+        <div id="view-carrito" class="app-view" style="display: none;">
+            <h2 class="subtitulo">Mi Carrito 🛒</h2>
+            <div id="lista-carrito" style="padding: 15px;"></div>
+            <div id="total-container" style="padding: 20px; border-top: 2px solid #eee; margin-top: 20px;">
+                <h3>Total: <span id="precio-total">$0</span></h3>
+                <button class="btn-comprar" onclick="finalizarCompra()">Finalizar Compra</button>
+            </div>
+        </div> <nav class="bottom-nav">
+            <div class="nav-item active" onclick="cambiarPantalla('inicio')">🏠<span>Inicio</span></div>
+            <div class="nav-item" onclick="cambiarPantalla('productos')">👟<span>Productos</span></div>
+            <div class="nav-item" onclick="cambiarPantalla('favoritos')">❤️<span>Favs</span></div>
+            <div class="nav-item">⚙️<span>Ajustes</span></div>
+        </nav>
+
+        <div id="modal-detalle" class="modal">
+            <div class="modal-content">
+                <span class="close-button">&times;</span>
+                <img id="modal-img" src="" alt="">
+                <div class="modal-body">
+                    <div id="btn-like" style="font-size: 2rem; cursor: pointer; margin-bottom: 10px;">🤍</div>
+                    <h2 id="modal-titulo"></h2>
+                    <p id="modal-precio"></p>
+                    <p class="descripcion"></p>
+                    <button class="btn-comprar" onclick="agregarAlCarrito()">Añadir al carrito</button>
+                </div>
+            </div>
+        </div>
+        <div id="btn-agregar-flotante" class="btn-flotante" onclick="abrirModalAgregar()" style="display: none;">+</div>
+
+        <div id="modal-agregar" class="modal">
+            <div class="modal-content">
+                <span class="close-button" onclick="cerrarModalAgregar()">&times;</span>
+                <div class="modal-body" style="padding-top: 30px;">
+                    <h2 class="subtitulo" style="margin-top:0; padding:0;">Nuevo Producto</h2>
+                    
+                    <input type="text" id="add-nombre" class="input-form" placeholder="Nombre del producto">
+                    <input type="number" id="add-precio" class="input-form" placeholder="Precio (ej: 15000)">
+                    
+                   <select id="add-categoria" class="input-form">
+    <option value="calzado">👟 Calzado</option>
+    <option value="ropa">👕 Ropa</option>
+    <option value="gorras">🧢 Gorras</option>
+    <option value="accesorios">🎒 Accesorios</option>
+    <option value="equipamiento">⚽ Equipamiento</option>
+</select>
+
+                    <input type="text" id="add-foto" class="input-form" placeholder="URL de la imagen (Link)">
+                    <textarea id="add-desc" class="input-form" placeholder="Descripción breve..." rows="3"></textarea>
+                    
+                    <button class="btn-comprar" style="background-color: #34a853;" onclick="guardarNuevoProducto()">Guardar en Firebase</button>
+                </div>
+            </div>
+        </div>
+
+    </div> 
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="config.js"></script>
+
+    <script src="app.js"></script> 
+</body>
+</html>

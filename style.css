@@ -1,7 +1,20 @@
+:root {
+    /* Colores principales */
+    --rosa-suave: #E7C1B5;
+    --beige-claro: #F7F2EB;
+    --marron: #735655;
+    --marron-claro: #CDBBA3;
+    --arena: #EBDFCD;
+
+    /* Colores de estado */
+    --rojo: #BD0000;
+    --amarillo: #E5BF27;
+    --verde: #3D8B40;
+}
 /* 1. RESET Y ESTRUCTURA BASE */
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    background-color: #f0f2f5;
+    background-color: white;
     margin: 0;
     padding: 0;
     display: flex;
@@ -12,7 +25,7 @@ body {
 .app-container {
     width: 100%;
     max-width: 450px;
-    background-color: white;
+    background-color: var(--arena);
     min-height: 100vh;
     display: flex;
     flex-direction: column; /* Apila los elementos: Bar -> Banner -> Main -> Nav */
@@ -28,7 +41,7 @@ body {
     width: 100%;
     max-width: 450px;
     height: 60px;
-    background-color: #ffffff;
+    background-color: var(--arena);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -44,7 +57,7 @@ body {
     width: 100%;
     max-width: 450px;
     height: 65px;
-    background: white;
+    background: var(--arena);
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -445,3 +458,64 @@ body {
 .item-carrito-desc h4 { margin:0; font-size: 0.9rem; }
 .item-carrito-desc p { margin:0; font-size: 0.8rem; color: #1a73e8; font-weight: bold; }
 .btn-eliminar-item { background: none; border: none; cursor: pointer; font-size: 1.1rem; }
+
+/* ===== BOTONES PRINCIPALES ===== */
+
+.acciones-principales{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:30px 20px;
+}
+
+.accion-card{
+    width:90px;
+    height:90px;
+    background:#F3D5CE;
+    border-radius:20px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    cursor:pointer;
+    text-align:center;
+}
+
+.accion-card i{
+    font-size:28px;
+    color:#6F4F4F;
+    margin-bottom:8px;
+}
+
+.accion-card span{
+    font-size:14px;
+    font-weight:600;
+    color:#000;
+}
+
+.accion-central{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.qr-circle{
+    width:120px;
+    height:120px;
+    background:#F7C9C0;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.qr-circle i{
+    font-size:60px;
+    color:#000;
+}
+
+.accion-central span{
+    margin-top:10px;
+    font-size:22px;
+    font-weight:700;
+}

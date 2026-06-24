@@ -5,31 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi App Dinámica</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/c5839ce997.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
     <div class="app-container">
         
        <nav class="app-bar">
-    <div class="user-profile">🛍️</div> 
-    <h1 id="titulo-app">Mi Tienda</h1>
-    <div class="cart-icon" onclick="cambiarPantalla('carrito')" style="cursor:pointer;">🛒</div>
+           <div class="cart-icon user-profile" onclick="cambiarPantalla('carrito')" style="cursor:pointer;"><i class="fa-solid fa-bars"></i></div>
+           <h1 id="titulo-app">Reina Stock</h1>
+           <div class="user-profile"><i class="fa-regular fa-bell"></i></div> 
 </nav>
 
         <div class="search-container">
-            <input type="text" id="input-buscador" placeholder="Buscar productos...">
+            <input type="text" id="input-buscador" placeholder="Buscar prenda...">
+            <i class="fa-solid fa-magnifying-glass"></i>
         </div>
 
         <div id="view-inicio" class="app-view">
-            <section class="banner-container">
+            <!-- <section class="banner-container">
                 <div class="banner-slider">
                     <div class="banner-item" style="background-color: #ff9900;">¡Ofertas de Invierno! ❄️</div>
                     <div class="banner-item" style="background-color: #1a73e8;">Envíos gratis 🚚</div>
                     <div class="banner-item" style="background-color: #34a853;">3 Cuotas sin interés 💳</div>
                 </div>
-            </section>
+            </section> -->
 
-            <section class="seccion-categorias">
+            <!-- <section class="seccion-categorias">
                 <h2 class="subtitulo">Categorías</h2>
                 <div class="categorias-grid">
     <div class="cat-item" onclick="filtrarCategoria('calzado')">👟<span>Calzado</span></div>
@@ -38,13 +40,34 @@
     <div class="cat-item" onclick="filtrarCategoria('accesorios')">🎒<span>Accesorios</span></div>
     <div class="cat-item" onclick="filtrarCategoria('equipamiento')">⚽<span>Equipos</span></div>
 </div>
-            </section>
+            </section> -->
 
             <section class="seccion-destacados">
-                <h2 class="subtitulo">Lo más buscado 🔥</h2>
+                <h2 class="subtitulo"><i class="fa-regular fa-clock"></i> Últimos productos vistos</h2>
                 <div id="contenedor-destacados"></div>
             </section>
-        </div>
+            
+            <section class="acciones-principales">
+                
+                <div class="accion-card" onclick="abrirModalAgregar()">
+                    <i class="fa-solid fa-box-open"></i>
+                    <span>Agregar<br>producto</span>
+                </div>
+                
+                <div class="accion-central">
+                    <div class="qr-circle">
+                        <i class="fa-solid fa-qrcode"></i>
+                    </div>
+                    <span>Escanear QR</span>
+                </div>
+                
+                <div class="accion-card" onclick="cambiarPantalla('productos')">
+        <i class="fa-solid fa-clipboard-list"></i>
+        <span>Ver<br>inventario</span>
+    </div>
+    
+</section>
+</div>
 
         <div id="view-productos" class="app-view" style="display: none;">
             <h2 class="subtitulo">Resultados</h2>
@@ -59,10 +82,10 @@
                 <button class="btn-comprar" onclick="finalizarCompra()">Finalizar Compra</button>
             </div>
         </div> <nav class="bottom-nav">
-            <div class="nav-item active" onclick="cambiarPantalla('inicio')">🏠<span>Inicio</span></div>
-            <div class="nav-item" onclick="cambiarPantalla('productos')">👟<span>Productos</span></div>
-            <div class="nav-item" onclick="cambiarPantalla('favoritos')">❤️<span>Favs</span></div>
-            <div class="nav-item">⚙️<span>Ajustes</span></div>
+            <div class="nav-item active" onclick="cambiarPantalla('inicio')"><i class="fa-solid fa-house"></i><span>Inicio</span></div>
+            <div class="nav-item" onclick="cambiarPantalla('productos')"><i class="fa-solid fa-clipboard"></i><span>Inventario</span></div>
+            <div class="nav-item" onclick="cambiarPantalla('favoritos')"><i class="fa-solid fa-box"></i><span>Agregar producto</span></div>
+            
         </nav>
 
         <div id="modal-detalle" class="modal">

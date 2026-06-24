@@ -8,7 +8,7 @@ const btnClose = document.querySelector(".close-button");
 const contenedor = document.getElementById('contenedor-productos');
 const tituloApp = document.getElementById('titulo-app');
 const btnLike = document.getElementById("btn-like");
-const buscador = document.getElementById('input-buscador');
+const buscador = document.getElementById('input-buscador-inventario');
 const contenedorDestacados = document.getElementById('contenedor-destacados');
 const btnAnadirCarrito = document.querySelector("#modal-detalle .btn-comprar");
 const modalAgregar = document.getElementById('modal-agregar');
@@ -20,7 +20,7 @@ let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 let firebaseListener = null; 
 let categoriaActual = null;
 
-// 3. CONTROL DE VISTAS (Navegación SPA)
+// 3. CONTROL DE VISTAS (Navegación SPA) - CORREGIDA PARA FIGMA
 function cambiarPantalla(pantalla) {
     const vistas = ['inicio', 'productos', 'carrito'];
     vistas.forEach(v => {
@@ -36,35 +36,29 @@ function cambiarPantalla(pantalla) {
 
     switch (pantalla) {
         case 'inicio':
-            tituloApp.innerText = "Mi Tienda";
-            if (buscador) buscador.value = "";
+            if (tituloApp) tituloApp.innerText = "Reina Stock";
             break;
         case 'productos':
-            tituloApp.innerText = "Todos los productos";
+            if (btnAgregar) btnAgregar.style.display = 'flex'; 
             cargarProductos(); 
             break;
         case 'favoritos':
-            tituloApp.innerText = "Mis Favoritos ❤️";
             cargarProductos("favoritos");
             break;
         case 'carrito':
-            tituloApp.innerText = "Mi Carrito";
-            actualizarVistaCarrito();
+            if (typeof actualizarVistaCarrito === "function") actualizarVistaCarrito();
             break;
     }
-}
 
-function filtrarCategoria(cat) {
-    categoriaActual = cat;
-    cambiarPantalla('productos');
-    
-    const btnAgregar = document.getElementById('btn-agregar-flotante');
-    if (btnAgregar) btnAgregar.style.display = 'flex';
-    
-    cargarProductos(cat); 
+    // Cambiar clase active en el menú inferior
+    document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+    const itemsNav = document.querySelectorAll('.bottom-nav .nav-item');
+    if (pantalla === 'inicio' && itemsNav[0]) itemsNav[0].classList.add('active');
+    if (pantalla === 'productos' && itemsNav[1]) itemsNav[1].classList.add('active');
+    if (pantalla === 'favoritos' && itemsNav[2]) itemsNav[2].classList.add('active');
 }
-
 // 4. LOGICA DE PRODUCTOS (Firestore Integration)
+// 4. LOGICA DE PRODUCTOS (Firestore Integration) - CORREGIDA
 function cargarProductos(tipo = null) {
     if (firebaseListener) firebaseListener(); // Desvincular listener anterior para optimizar memoria
 
@@ -74,13 +68,17 @@ function cargarProductos(tipo = null) {
         consulta = consulta.where("likes", ">", 0).orderBy("likes", "desc");
     } else if (tipo) {
         consulta = consulta.where("categoria", "==", tipo);
-        tituloApp.innerText = "Categoría: " + tipo.charAt(0).toUpperCase() + tipo.slice(1);
+        
+        // CAMBIO PROTEGIDO: Solo cambia el texto si existe 'tituloApp' en la pantalla
+        if (tituloApp) {
+            tituloApp.innerText = "Categoría: " + tipo.charAt(0).toUpperCase() + tipo.slice(1);
+        }
     }
 
     firebaseListener = consulta.onSnapshot((snapshot) => {
-        contenedor.innerHTML = '';
+        if (contenedor) contenedor.innerHTML = '';
         if (snapshot.empty) {
-            contenedor.innerHTML = '<p class="sin-datos">No hay productos disponibles en esta sección.</p>';
+            if (contenedor) contenedor.innerHTML = '<p class="sin-datos">No hay productos disponibles en esta sección.</p>';
             return;
         }
 
@@ -134,25 +132,41 @@ function cargarDestacados() {
 }
 
 function renderizarCard(id, data) {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.onclick = () => verDetalle(id, data.nombre, data.precio, data.foto_url, data.descripcion, data.likes);
+    if (!contenedor) return; // Protección por si no encuentra el contenedor
     
+    const card = document.createElement('div');
+    card.className = 'card-inventario'; 
+    
+    const talle = data.talle || "Único";
+    const stock = data.stock !== undefined ? data.stock : 0;
+    
+    // Configuración exacta de alertas visuales según tu prototipo
+    let colorEstado = "#34a853"; // Verde por defecto: Stock cómodo
+    
+    if (stock <= 3) {
+        colorEstado = "#ea4335"; // Rojo: Alerta crítica
+    } else if (stock <= 5) {
+        colorEstado = "#fbbc05"; // Amarillo: Alerta moderada
+    }
+
     card.innerHTML = `
-        <div class="card-img-container">
-            <img src="${data.foto_url || 'https://via.placeholder.com/200'}" alt="${data.nombre}">
-            <button class="btn-borrar-db" onclick="eliminarProducto('${id}', event)">🗑️</button>
-        </div>
-        <div class="card-info">
-            <div class="card-info-header">
+        <div class="card-inventario-izquierda">
+            <span class="circulo-estado" style="background-color: ${colorEstado};"></span>
+            <div class="card-inventario-info">
                 <h3>${data.nombre}</h3>
-                <span>${data.likes > 0 ? '❤️ ' + data.likes : ''}</span>
+                <p>Talle: <strong>${talle}</strong></p>
+                <p>Stock: <strong>${stock}</strong></p>
             </div>
-            <p class="precio">$${data.precio}</p>
+        </div>
+        <div class="card-inventario-derecha">
+            <img src="${data.foto_url || 'https://via.placeholder.com/200'}" alt="${data.nombre}">
+            <button class="btn-borrar-db-flotante" onclick="eliminarProducto('${id}', event)">🗑️</button>
         </div>
     `;
+    
     contenedor.appendChild(card);
 }
+
 
 // 5. MODAL DETALLE Y ACCIONES SOCIALES (Social Commerce)
 function verDetalle(id, nombre, precio, foto_url, descripcion, likes) {
@@ -267,35 +281,35 @@ function abrirModalAgregar() {
 function cerrarModalAgregar() {
     modalAgregar.style.display = 'none';
     document.getElementById('add-nombre').value = '';
-    document.getElementById('add-precio').value = '';
+    document.getElementById('add-talle').value = '';
+    document.getElementById('add-stock').value = '';
     document.getElementById('add-foto').value = '';
-    document.getElementById('add-desc').value = '';
 }
 
 function guardarNuevoProducto() {
     const nombre = document.getElementById('add-nombre').value;
-    const precio = document.getElementById('add-precio').value;
+    const talle = document.getElementById('add-talle').value;
+    const stock = document.getElementById('add-stock').value;
     const categoria = document.getElementById('add-categoria').value;
     const foto = document.getElementById('add-foto').value;
-    const desc = document.getElementById('add-desc').value;
 
-    if (!nombre || !precio) {
-        alert("Por favor, complete los campos mandatorios (Nombre y Precio).");
+    if (!nombre || stock === "") {
+        alert("Por favor, complete los campos mandatorios (Nombre y Stock).");
         return;
     }
 
+    // Guarda en Firebase usando los nuevos campos de tu Figma
     db.collection("productos").add({
         nombre: nombre,
-        precio: Number(precio), 
+        talle: talle || "Único",
+        stock: Number(stock), 
         categoria: categoria,
-        foto_url: foto || 'https://via.placeholder.com/200', 
-        descripcion: desc,
-        likes: 0 
+        foto_url: foto || 'https://via.placeholder.com/200'
     })
     .then(() => {
         cerrarModalAgregar();
     })
-    .catch((error) => console.error("Error al persistir el alta de producto:", error));
+    .catch((error) => console.error("Error al guardar el producto:", error));
 }
 
 function eliminarProducto(id, event) {

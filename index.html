@@ -5,22 +5,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi App Dinámica</title>
     <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* Limpiamos los márgenes de la página por completo */
+        html, body {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        /* El contenedor principal fluye de arriba a abajo naturalmente */
+        .app-container {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+        /* El inventario beige sube al techo y usa el scroll natural de la pantalla */
+        #view-productos {
+            margin-top: 0 !important;
+            padding-top: 20px !important;
+            background-color: #EFE6DB !important;
+            overflow: visible !important; /* Vuela la barra doble y libera el scroll común */
+        }
+    </style>
+    
 </head>
 <body>
 
     <div class="app-container">
         
-       <nav class="app-bar">
-    <div class="user-profile">🛍️</div> 
-    <h1 id="titulo-app">Mi Tienda</h1>
-    <div class="cart-icon" onclick="cambiarPantalla('carrito')" style="cursor:pointer;">🛒</div>
-</nav>
-
-        <div class="search-container">
-            <input type="text" id="input-buscador" placeholder="Buscar productos...">
-        </div>
-
+       <!-- PANTALLA: INICIO -->
         <div id="view-inicio" class="app-view">
+            
+            <!-- El encabezado blanco ahora solo existe ACÁ ADENTRO -->
+            <nav class="app-bar">
+                <div class="user-profile">🛍️</div> 
+                <h1 id="titulo-app">Mi Tienda</h1>
+                <div class="cart-icon" onclick="cambiarPantalla('carrito')" style="cursor:pointer;">🛒</div>
+            </nav>
+
+            <div class="search-container">
+                <input type="text" id="input-buscador" placeholder="Buscar productos...">
+            </div>
+
             <section class="banner-container">
                 <div class="banner-slider">
                     <div class="banner-item" style="background-color: #ff9900;">¡Ofertas de Invierno! ❄️</div>
@@ -32,12 +56,12 @@
             <section class="seccion-categorias">
                 <h2 class="subtitulo">Categorías</h2>
                 <div class="categorias-grid">
-    <div class="cat-item" onclick="filtrarCategoria('calzado')">👟<span>Calzado</span></div>
-    <div class="cat-item" onclick="filtrarCategoria('ropa')">👕<span>Ropa</span></div>
-    <div class="cat-item" onclick="filtrarCategoria('gorras')">🧢<span>Gorras</span></div>
-    <div class="cat-item" onclick="filtrarCategoria('accesorios')">🎒<span>Accesorios</span></div>
-    <div class="cat-item" onclick="filtrarCategoria('equipamiento')">⚽<span>Equipos</span></div>
-</div>
+                    <div class="cat-item" onclick="filtrarCategoria('calzado')">👟<span>Calzado</span></div>
+                    <div class="cat-item" onclick="filtrarCategoria('ropa')">👕<span>Ropa</span></div>
+                    <div class="cat-item" onclick="filtrarCategoria('gorras')">🧢<span>Gorras</span></div>
+                    <div class="cat-item" onclick="filtrarCategoria('accesorios')">🎒<span>Accesorios</span></div>
+                    <div class="cat-item" onclick="filtrarCategoria('equipamiento')">⚽<span>Equipos</span></div>
+                </div>
             </section>
 
             <section class="seccion-destacados">
@@ -46,8 +70,27 @@
             </section>
         </div>
 
-        <div id="view-productos" class="app-view" style="display: none;">
-            <h2 class="subtitulo">Resultados</h2>
+        <div id="view-productos" class="app-view" style="display: none; background-color: #EFE6DB; margin-top: 0; padding-top: 5px;">
+            <header class="encabezado-inventario" style="padding-top: 0; margin-top: 0;">
+                <div class="bolsa-icono-superior" style="margin-top: 0;">
+                    <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#7a6f6d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                </div>
+                
+                <h1 class="titulo-inventario" id="titulo-app" style="margin-top: 5px; margin-bottom: 5px;">Mi Inventario</h1>
+                
+                <div class="buscador-fila-container">
+                    <button class="btn-volver-atras" onclick="cambiarPantalla('inicio')">←</button>
+                    <div class="buscador-input-wrapper">
+                        <input type="text" id="input-buscador-inventario" class="input-limpio-figma" placeholder="Buscar prenda...">
+                        <span class="lupa-icono">🔍</span>
+                    </div>
+                </div>
+            </header>
+
             <main id="contenedor-productos"></main>
         </div>
 

@@ -1,50 +1,72 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi App Dinámica</title>
+    <title>Reina Stock</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/c5839ce997.js" crossorigin="anonymous"></script>
 
-    
+
     <style>
         /* Limpiamos los márgenes de la página por completo */
-        html, body {
+        html,
+        body {
             margin: 0 !important;
             padding: 0 !important;
         }
+
         /* El contenedor principal fluye de arriba a abajo naturalmente */
         .app-container {
             margin: 0 !important;
             padding: 0 !important;
         }
+
         /* El inventario beige sube al techo y usa el scroll natural de la pantalla */
         #view-productos {
             margin-top: 0 !important;
             padding-top: 20px !important;
             background-color: #EFE6DB !important;
-            overflow: visible !important; /* Vuela la barra doble y libera el scroll común */
+            overflow: visible !important;
+            /* Vuela la barra doble y libera el scroll común */
         }
     </style>
-    
+
 </head>
+
 <body>
 
     <div class="app-container">
-        
-       <nav class="app-bar">
-           <div class="cart-icon user-profile" onclick="cambiarPantalla('carrito')" style="cursor:pointer;"><i class="fa-solid fa-bars"></i></div>
-           <h1 id="titulo-app">Reina Stock</h1>
-           <div class="user-profile"><i class="fa-regular fa-bell"></i></div> 
-</nav>
+
+        <nav class="app-bar">
+            <div class="cart-icon user-profile" onclick="cambiarPantalla('carrito')" style="cursor:pointer;"><i
+                    class="fa-solid fa-bars"></i></div>
+            <h1 id="titulo-app">Reina Stock</h1>
+            <div class="user-profile"><i class="fa-regular fa-bell"></i></div>
+        </nav>
+
 
         <div class="search-container">
-            <input type="text" id="input-buscador" placeholder="Buscar prenda...">
-            <i class="fa-solid fa-magnifying-glass"></i>
-        </div>
+    <input type="text" id="input-buscador" placeholder="Buscar prenda...">
+</div>
+
 
         <div id="view-inicio" class="app-view">
+
+
+            <div class="buscador-fila-container buscador-home">
+
+                <div class="buscador-input-wrapper">
+                    <input type="text" id="input-buscador-home" class="input-limpio-figma"
+                        placeholder="Buscar prenda...">
+
+                    <span class="lupa-icono">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </span>
+                </div>
+
+            </div>
             <!-- <section class="banner-container">
                 <div class="banner-slider">
                     <div class="banner-item" style="background-color: #ff9900;">¡Ofertas de Invierno! ❄️</div>
@@ -68,46 +90,51 @@
                 <h2 class="subtitulo"><i class="fa-regular fa-clock"></i> Últimos productos vistos</h2>
                 <div id="contenedor-destacados"></div>
             </section>
-            
+
             <section class="acciones-principales">
-                
+
                 <div class="accion-card" onclick="abrirModalAgregar()">
                     <i class="fa-solid fa-box-open"></i>
                     <span>Agregar<br>producto</span>
                 </div>
-                
+
                 <div class="accion-central">
                     <div class="qr-circle">
                         <i class="fa-solid fa-qrcode"></i>
                     </div>
                     <span>Escanear QR</span>
                 </div>
-                
-                <div class="accion-card" onclick="cambiarPantalla('productos')">
-        <i class="fa-solid fa-clipboard-list"></i>
-        <span>Ver<br>inventario</span>
-    </div>
-    
-</section>
-</div>
 
-        <div id="view-productos" class="app-view" style="display: none; background-color: #EFE6DB; margin-top: 0; padding-top: 5px;">
+                <div class="accion-card" onclick="cambiarPantalla('productos')">
+                    <i class="fa-solid fa-clipboard-list"></i>
+                    <span>Ver<br>inventario</span>
+                </div>
+
+            </section>
+        </div>
+
+        <div id="view-productos" class="app-view"
+            style="display: none; background-color: var(--arena); margin-top: 0; padding-top: 5px;">
             <header class="encabezado-inventario" style="padding-top: 0; margin-top: 0;">
                 <div class="bolsa-icono-superior" style="margin-top: 0;">
-                    <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#7a6f6d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#7a6f6d" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round">
                         <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
                         <line x1="3" y1="6" x2="21" y2="6"></line>
                         <path d="M16 10a4 4 0 0 1-8 0"></path>
                     </svg>
                 </div>
-                
-                <h1 class="titulo-inventario" id="titulo-app" style="margin-top: 5px; margin-bottom: 5px;">Mi Inventario</h1>
-                
+
+                <h1 class="titulo-inventario" id="titulo-app" style="margin-top: 5px; margin-bottom: 5px;">Mi Inventario
+                </h1>
+
                 <div class="buscador-fila-container">
-                    <button class="btn-volver-atras" onclick="cambiarPantalla('inicio')">←</button>
+                    <button class="btn-volver-atras" onclick="cambiarPantalla('inicio')"><i
+                            class="fa-solid fa-arrow-left"></i></button>
                     <div class="buscador-input-wrapper">
-                        <input type="text" id="input-buscador-inventario" class="input-limpio-figma" placeholder="Buscar prenda...">
-                        <span class="lupa-icono">🔍</span>
+                        <input type="text" id="input-buscador-inventario" class="input-limpio-figma"
+                            placeholder="Buscar prenda...">
+                        <span class="lupa-icono"><i class="fa-solid fa-magnifying-glass"></i></span>
                     </div>
                 </div>
             </header>
@@ -122,11 +149,15 @@
                 <h3>Total: <span id="precio-total">$0</span></h3>
                 <button class="btn-comprar" onclick="finalizarCompra()">Finalizar Compra</button>
             </div>
-        </div> <nav class="bottom-nav">
-            <div class="nav-item active" onclick="cambiarPantalla('inicio')"><i class="fa-solid fa-house"></i><span>Inicio</span></div>
-            <div class="nav-item" onclick="cambiarPantalla('productos')"><i class="fa-solid fa-clipboard"></i><span>Inventario</span></div>
-            <div class="nav-item" onclick="cambiarPantalla('favoritos')"><i class="fa-solid fa-box"></i><span>Agregar producto</span></div>
-            
+        </div>
+        <nav class="bottom-nav">
+            <div class="nav-item active" onclick="cambiarPantalla('inicio')"><i
+                    class="fa-solid fa-house"></i><span>Inicio</span></div>
+            <div class="nav-item" onclick="cambiarPantalla('productos')"><i
+                    class="fa-solid fa-clipboard"></i><span>Inventario</span></div>
+            <div class="nav-item" onclick="cambiarPantalla('favoritos')"><i class="fa-solid fa-box"></i><span>Agregar
+                    producto</span></div>
+
         </nav>
 
         <div id="modal-detalle" class="modal">
@@ -149,31 +180,35 @@
                 <span class="close-button" onclick="cerrarModalAgregar()">&times;</span>
                 <div class="modal-body" style="padding-top: 30px;">
                     <h2 class="subtitulo" style="margin-top:0; padding:0;">Nuevo Producto</h2>
-                    
+
                     <input type="text" id="add-nombre" class="input-form" placeholder="Nombre del producto">
                     <input type="number" id="add-precio" class="input-form" placeholder="Precio (ej: 15000)">
-                    
-                   <select id="add-categoria" class="input-form">
-    <option value="calzado">👟 Calzado</option>
-    <option value="ropa">👕 Ropa</option>
-    <option value="gorras">🧢 Gorras</option>
-    <option value="accesorios">🎒 Accesorios</option>
-    <option value="equipamiento">⚽ Equipamiento</option>
-</select>
+                    <input type="text" id="add-talle" class="input-form" placeholder="Talle">
+                    <input type="number" id="add-stock" class="input-form" placeholder="Stock">
+
+                    <select id="add-categoria" class="input-form">
+                        <option value="calzado">S</option>
+                        <option value="ropa">M</option>
+                        <option value="gorras">L</option>
+                        <option value="accesorios">XL</option>
+                        <option value="equipamiento">XXL</option>
+                    </select>
 
                     <input type="text" id="add-foto" class="input-form" placeholder="URL de la imagen (Link)">
                     <textarea id="add-desc" class="input-form" placeholder="Descripción breve..." rows="3"></textarea>
-                    
-                    <button class="btn-comprar" style="background-color: #34a853;" onclick="guardarNuevoProducto()">Guardar en Firebase</button>
+
+                    <button class="btn-comprar" style="background-color: var(--marron);"
+                        onclick="guardarNuevoProducto()">Guardar en Firebase</button>
                 </div>
             </div>
         </div>
 
-    </div> 
+    </div>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
     <script src="config.js"></script>
 
-    <script src="app.js"></script> 
+    <script src="app.js"></script>
 </body>
+
 </html>

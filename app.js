@@ -116,16 +116,42 @@ function cargarDestacados() {
                 card.className = 'card';
                 card.onclick = () => verDetalle(id, data.nombre, data.precio, data.foto_url, data.descripcion, data.likes);
 
+                const claseStock = obtenerClaseStock(data.stock || 0);
+
+                // card.innerHTML = `
+                //     <img src="${data.foto_url || 'https://via.placeholder.com/200'}" alt="${data.nombre}">
+                //     <div class="card-info">
+                //         <div class="card-info-header">
+                //             <h3>${data.nombre}</h3>
+                //             <span class="badge-likes">❤️ ${data.likes}</span>
+                //         </div>
+                //         <p class="precio">$${data.precio}</p>
+                //     </div>
+                // `;
+
                 card.innerHTML = `
-                    <img src="${data.foto_url || 'https://via.placeholder.com/200'}" alt="${data.nombre}">
-                    <div class="card-info">
-                        <div class="card-info-header">
-                            <h3>${data.nombre}</h3>
-                            <span class="badge-likes">❤️ ${data.likes}</span>
-                        </div>
-                        <p class="precio">$${data.precio}</p>
-                    </div>
-                `;
+    <img src="${data.foto_url || 'https://via.placeholder.com/200'}" alt="${data.nombre}">
+
+    <div class="card-info">
+
+        <h3>${data.nombre}</h3>
+
+        <div class="datos-stock">
+
+            <span class="talle-card">
+                Talle: ${data.talle || '-'}
+            </span>
+
+            <span class="stock-card">
+                Stock: ${data.stock || 0}
+            </span>
+
+            <span class="circulo-stock ${claseStock}"></span>
+
+        </div>
+
+    </div>
+`;
                 contenedorDestacados.appendChild(card);
             });
         });
@@ -301,10 +327,13 @@ function guardarNuevoProducto() {
     // Guarda en Firebase usando los nuevos campos de tu Figma
     db.collection("productos").add({
         nombre: nombre,
+        precio: Number(precio),
         talle: talle || "Único",
         stock: Number(stock), 
         categoria: categoria,
-        foto_url: foto || 'https://via.placeholder.com/200'
+        foto_url: foto || 'https://via.placeholder.com/200',
+        descripcion: desc,
+        likes: 0
     })
     .then(() => {
         cerrarModalAgregar();
@@ -320,6 +349,19 @@ function eliminarProducto(id, event) {
         db.collection("productos").doc(id).delete()
         .catch((error) => console.error("Error de eliminación en base de datos:", error));
     }
+}
+
+function obtenerClaseStock(stock) {
+
+    if (stock <= 3) {
+        return "stock-bajo";
+    }
+
+    if (stock <= 10) {
+        return "stock-medio";
+    }
+
+    return "stock-alto";
 }
 
 // INICIALIZACIÓN GLOBAL

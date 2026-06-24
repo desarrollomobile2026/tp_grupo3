@@ -73,7 +73,7 @@ body {
     color: #888;
 }
 
-.nav-item.active { color: #1a73e8; font-weight: bold; }
+.nav-item.active { color: var(--marron); font-weight: bold; }
 
 /* 3. BANNER ANIMADO */
 .banner-container {
@@ -97,7 +97,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: var(--arena);
     font-weight: bold;
     font-size: 1rem;
     text-align: center;
@@ -122,7 +122,7 @@ body {
 
 .card {
     width: 100%;
-    background: white;
+    background: var(--beige-claro);
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0 1px 4px rgba(0,0,0,0.1);
@@ -146,7 +146,7 @@ body {
 
 .card-info p {
     margin: 5px 0 0 0;
-    color: #1a73e8;
+    color: var(--marron);
     font-weight: bold;
 }
 
@@ -209,7 +209,7 @@ body {
     top: 15px;
     right: 20px;
     font-size: 30px;
-    color: white;
+    color: var(--arena);
     text-shadow: 0 0 5px rgba(0,0,0,0.5);
     cursor: pointer;
     z-index: 10;
@@ -222,7 +222,7 @@ body {
 .btn-comprar {
     width: 100%;
     padding: 15px;
-    background-color: #1a73e8;
+    background-color: var(--marron);
     color: white;
     border: none;
     border-radius: 10px;
@@ -231,7 +231,7 @@ body {
 }
 /* --- ESTILOS DE LA PANTALLA DE INICIO --- */
 .app-view {
-    padding-top: 10px;
+    padding: 10px;
     animation: fadeIn 0.3s ease-in-out;
 }
 
@@ -304,7 +304,7 @@ body {
 }
 .search-container {
     padding: 10px 15px;
-    background-color: #fff;
+    background-color: var(--arena);
     position: sticky;
     top: 0;
     z-index: 100;
@@ -322,7 +322,7 @@ body {
 }
 
 #input-buscador:focus {
-    border-color: #1a73e8;
+    border-color: var(--marron);
 }
 .item-carrito {
     display: flex;
@@ -343,7 +343,7 @@ body {
 }
 
 .btn-eliminar {
-    background: #ff4757;
+    background: var(--rojo);
     color: white;
     border: none;
     padding: 5px 10px;
@@ -359,7 +359,7 @@ body {
     margin-left: 150px; /* ¡La magia! Lo mantiene adentro del celular de 450px */
     width: 55px;
     height: 55px;
-    background-color: #1a73e8;
+    background-color: var(--marron);
     color: white;
     border-radius: 50%;
     display: flex;
@@ -367,7 +367,7 @@ body {
     align-items: center;
     font-size: 35px;
     font-weight: normal;
-    box-shadow: 0 4px 10px rgba(26, 115, 232, 0.4);
+    box-shadow: 0 4px 10px rgba(114, 87, 41, 0.422);
     cursor: pointer;
     z-index: 1000;
     transition: transform 0.2s;
@@ -394,7 +394,7 @@ body {
 
 .input-form:focus {
     outline: none;
-    border-color: #1a73e8;
+    border-color: var(--marron);
 }
 /* --- BOTÓN DE BORRAR EN LA TARJETA --- */
 .card-img-container {
@@ -421,7 +421,7 @@ body {
 }
 
 .btn-borrar-db:hover {
-    background-color: #ff4757;
+    background-color: var(--rojo);
 }
 
 .btn-borrar-db:active {
@@ -444,7 +444,7 @@ body {
 .badge-likes {
     font-size: 0.8rem; 
     font-weight: bold; 
-    color: #e91e63;
+    color: var(--rojo);
 }
 .carrito-vacio-msg {
     text-align: center; 
@@ -456,7 +456,7 @@ body {
     margin-left: 10px;
 }
 .item-carrito-desc h4 { margin:0; font-size: 0.9rem; }
-.item-carrito-desc p { margin:0; font-size: 0.8rem; color: #1a73e8; font-weight: bold; }
+.item-carrito-desc p { margin:0; font-size: 0.8rem; color: var(--marron); font-weight: bold; }
 .btn-eliminar-item { background: none; border: none; cursor: pointer; font-size: 1.1rem; }
 
 /* ===== BOTONES PRINCIPALES ===== */
@@ -471,7 +471,7 @@ body {
 .accion-card{
     width:90px;
     height:90px;
-    background:#F3D5CE;
+    background:var(--rosa-suave);
     border-radius:20px;
     display:flex;
     flex-direction:column;
@@ -483,14 +483,14 @@ body {
 
 .accion-card i{
     font-size:28px;
-    color:#6F4F4F;
+    color:var(--marron);
     margin-bottom:8px;
 }
 
 .accion-card span{
     font-size:14px;
     font-weight:600;
-    color:#000;
+    color:var(--marron);
 }
 
 .accion-central{
@@ -502,7 +502,7 @@ body {
 .qr-circle{
     width:120px;
     height:120px;
-    background:#F7C9C0;
+    background:var(--rosa-suave);
     border-radius:50%;
     display:flex;
     justify-content:center;
@@ -511,7 +511,7 @@ body {
 
 .qr-circle i{
     font-size:60px;
-    color:#000;
+    color:var(--marron);
 }
 
 .accion-central span{
@@ -525,7 +525,7 @@ body {
 
 /* 1. Fondo de la pantalla general con el beige de tu Figma */
 #view-productos {
-    background-color: #EFE6DB !important;
+    background-color: var(--beige-claro) !important;
     min-height: 100vh; /* Asegura que cubra todo el alto de la pantalla */
     padding-bottom: 80px; /* Deja espacio para que la barra de abajo no tape las cards */
 }
@@ -648,13 +648,13 @@ body {
 
 /* Forzamos el contenedor beige */
 #view-productos {
-    background-color: #EFE6DB !important;
+    background-color: var(--arena) !important;
     padding-bottom: 90px;
 }
 
 /* Diseñamos el bloque del encabezado nuevo */
 .encabezado-inventario {
-    background-color: #EFE6DB !important;
+    background-color: var(--arena) !important;
     padding: 25px 16px 15px 16px !important;
     display: flex !important;
     flex-direction: column !important;
@@ -667,7 +667,7 @@ body {
 .titulo-inventario {
     font-size: 1.8rem !important;
     font-weight: 700 !important;
-    color: #4a3e3d !important;
+    color: var(--marron) !important;
     margin: 10px 0 15px 0 !important;
 }
 
@@ -684,7 +684,7 @@ body {
     background: none !important;
     border: none !important;
     font-size: 1.8rem !important;
-    color: #4a3e3d !important;
+    color: var(--marron) !important;
     cursor: pointer !important;
     padding: 0 !important;
 }
@@ -698,12 +698,12 @@ body {
 /* El buscador se transforma en óvalo crema suave */
 .input-limpio-figma {
     width: 100% !important;
-    background-color: #FAF6F0 !important;
+    background-color: var(--beige-claro) !important;
     border: 1px solid #D1C7BD !important;
     border-radius: 25px !important; /* Óvalo como Figma */
     padding: 12px 40px 12px 20px !important;
     font-size: 0.95rem !important;
-    color: #4a3e3d !important;
+    color: var(--marron) !important;
     outline: none !important;
     box-sizing: border-box !important;
 }
@@ -731,4 +731,29 @@ body {
     margin-top: 5px !important;    /* Reduce el espacio arriba del título */
     margin-bottom: 10px !important; /* Acerca el buscador al título */
 
+}
+
+.stock-alto{
+    background-color:#4CAF50;
+}
+
+.stock-medio{
+    background-color:#E5BF27;
+}
+
+.stock-bajo{
+    background-color:#BD0000;
+}
+
+.circulo-stock{
+    width:12px;
+    height:12px;
+    border-radius:50%;
+    display:inline-block;
+}
+
+.datos-stock{
+    display:flex;
+    align-items:center;
+    gap:8px;
 }

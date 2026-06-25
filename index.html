@@ -7,6 +7,9 @@
     <title>Reina Stock</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/c5839ce997.js" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Bodoni:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
 
 
     <style>
@@ -40,16 +43,61 @@
     <div class="app-container">
 
         <nav class="app-bar">
-            <div class="cart-icon user-profile" onclick="cambiarPantalla('carrito')" style="cursor:pointer;"><i
-                    class="fa-solid fa-bars"></i></div>
-            <h1 id="titulo-app">Reina Stock</h1>
-            <div class="user-profile"><i class="fa-regular fa-bell"></i></div>
+            <!-- Overlay -->
+            <div id="overlay-menu" class="overlay-menu" onclick="cerrarMenu()"></div>
+
+            <!-- Menú lateral -->
+            <div id="menu-lateral" class="menu-lateral">
+
+                <div class="menu-header">
+                    <h3>Menú</h3>
+                    <h1 class="titulo-app">Reina Stock</h1>
+                </div>
+
+                <hr>
+
+                <div class="menu-item" onclick="cambiarPantalla('productos'); cerrarMenu();">
+                    <i class="fa-solid fa-box"></i>
+                    <span>Mi inventario</span>
+                </div>
+
+                <div class="menu-item">
+                    <i class="fa-solid fa-arrows-rotate"></i>
+                    <div>
+                        <span>Modificaciones</span>
+                        <small>Ver mis últimas modificaciones</small>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <i class="fa-regular fa-file-lines"></i>
+                    <span>Historial de movimientos</span>
+                </div>
+
+                <hr>
+
+                <div class="menu-item">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Configuración</span>
+                </div>
+
+                <div class="menu-item">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Cerrar sesión</span>
+                </div>
+
+            </div>
+            <div class="cart-icon " onclick="abrirMenu()" style="cursor:pointer;">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <h1 id="titulo-app" class="titulo-app">Reina Stock</h1>
+            <div ><i class="fa-regular fa-bell"></i></div>
         </nav>
 
 
         <div class="search-container">
-    <input type="text" id="input-buscador" placeholder="Buscar prenda...">
-</div>
+            <input type="text" id="input-buscador" placeholder="Buscar prenda...">
+        </div>
 
 
         <div id="view-inicio" class="app-view">
@@ -142,21 +190,21 @@
             <main id="contenedor-productos"></main>
         </div>
 
-        <div id="view-carrito" class="app-view" style="display: none;">
+        <!-- <div id="view-carrito" class="app-view" style="display: none;">
             <h2 class="subtitulo">Mi Carrito 🛒</h2>
             <div id="lista-carrito" style="padding: 15px;"></div>
             <div id="total-container" style="padding: 20px; border-top: 2px solid #eee; margin-top: 20px;">
                 <h3>Total: <span id="precio-total">$0</span></h3>
                 <button class="btn-comprar" onclick="finalizarCompra()">Finalizar Compra</button>
             </div>
-        </div>
+        </div> -->
         <nav class="bottom-nav">
             <div class="nav-item active" onclick="cambiarPantalla('inicio')"><i
                     class="fa-solid fa-house"></i><span>Inicio</span></div>
             <div class="nav-item" onclick="cambiarPantalla('productos')"><i
                     class="fa-solid fa-clipboard"></i><span>Inventario</span></div>
-            <div class="nav-item" onclick="cambiarPantalla('favoritos')"><i class="fa-solid fa-box"></i><span>Agregar
-                    producto</span></div>
+            <!-- <div class="nav-item" onclick="cambiarPantalla('favoritos')"><i class="fa-solid fa-box"></i><span>Agregar
+                    producto</span></div> -->
 
         </nav>
 
@@ -169,11 +217,12 @@
                     <h2 id="modal-titulo"></h2>
                     <p id="modal-precio"></p>
                     <p class="descripcion"></p>
-                    <button class="btn-comprar" onclick="agregarAlCarrito()">Añadir al carrito</button>
+                    <button class="btn-comprar" onclick="agregarAlCarrito()">Editar producto</button>
                 </div>
             </div>
         </div>
-        <div id="btn-agregar-flotante" class="btn-flotante" onclick="abrirModalAgregar()" style="display: none;">+</div>
+        <div id="btn-agregar-flotante" class="btn-flotante" onclick="abrirModalAgregar()" style="display: none;"><i
+                class="fa-solid fa-plus"></i></div>
 
         <div id="modal-agregar" class="modal">
             <div class="modal-content">
@@ -186,13 +235,6 @@
                     <input type="text" id="add-talle" class="input-form" placeholder="Talle">
                     <input type="number" id="add-stock" class="input-form" placeholder="Stock">
 
-                    <select id="add-categoria" class="input-form">
-                        <option value="calzado">S</option>
-                        <option value="ropa">M</option>
-                        <option value="gorras">L</option>
-                        <option value="accesorios">XL</option>
-                        <option value="equipamiento">XXL</option>
-                    </select>
 
                     <input type="text" id="add-foto" class="input-form" placeholder="URL de la imagen (Link)">
                     <textarea id="add-desc" class="input-form" placeholder="Descripción breve..." rows="3"></textarea>

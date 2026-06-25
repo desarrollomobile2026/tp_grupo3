@@ -313,32 +313,45 @@ function cerrarModalAgregar() {
 }
 
 function guardarNuevoProducto() {
+
     const nombre = document.getElementById('add-nombre').value;
+    const precio = document.getElementById('add-precio').value;
     const talle = document.getElementById('add-talle').value;
     const stock = document.getElementById('add-stock').value;
-    const categoria = document.getElementById('add-categoria').value;
     const foto = document.getElementById('add-foto').value;
+    const desc = document.getElementById('add-desc').value;
 
     if (!nombre || stock === "") {
-        alert("Por favor, complete los campos mandatorios (Nombre y Stock).");
+        alert("Complete Nombre y Stock");
         return;
     }
 
-    // Guarda en Firebase usando los nuevos campos de tu Figma
     db.collection("productos").add({
         nombre: nombre,
-        precio: Number(precio),
+        precio: Number(precio) || 0,
         talle: talle || "Único",
-        stock: Number(stock), 
-        categoria: categoria,
-        foto_url: foto || 'https://via.placeholder.com/200',
-        descripcion: desc,
+        stock: Number(stock),
+        foto_url: foto || "https://via.placeholder.com/200",
+        descripcion: desc || "",
         likes: 0
     })
     .then(() => {
+
+        alert("Producto guardado correctamente");
+
+        document.getElementById('add-nombre').value = "";
+        document.getElementById('add-precio').value = "";
+        document.getElementById('add-talle').value = "";
+        document.getElementById('add-stock').value = "";
+        document.getElementById('add-foto').value = "";
+        document.getElementById('add-desc').value = "";
+
         cerrarModalAgregar();
     })
-    .catch((error) => console.error("Error al guardar el producto:", error));
+    .catch((error) => {
+        console.error(error);
+        alert("Error al guardar");
+    });
 }
 
 function eliminarProducto(id, event) {
@@ -362,6 +375,26 @@ function obtenerClaseStock(stock) {
     }
 
     return "stock-alto";
+}
+
+function abrirMenu() {
+    document
+        .getElementById("menu-lateral")
+        .classList.add("abierto");
+
+    document
+        .getElementById("overlay-menu")
+        .classList.add("abierto");
+}
+
+function cerrarMenu() {
+    document
+        .getElementById("menu-lateral")
+        .classList.remove("abierto");
+
+    document
+        .getElementById("overlay-menu")
+        .classList.remove("abierto");
 }
 
 // INICIALIZACIÓN GLOBAL
